@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков\Particles">
+      <UniqueIdentifier>{9d060f3b-26d8-4e68-87e4-09eef03947ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Generators">
+      <UniqueIdentifier>{7d726a2d-a8d8-4aec-913f-f523e30b493e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Generators\Inner Particle Generators">
+      <UniqueIdentifier>{41a21983-e3e0-4125-9731-697af46af1be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Utility">
+      <UniqueIdentifier>{bc456c5d-ab28-4bd7-9aac-efc02b9919b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Simulation">
+      <UniqueIdentifier>{15c1458b-b948-4672-8a6b-55ebeb7e9a31}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Particle.h">
+      <Filter>Файлы заголовков\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="SphericalParticle.h">
+      <Filter>Файлы заголовков\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeShiftSignalGenerator.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="InnerParticlesGenerator.h">
+      <Filter>Файлы заголовков\Generators\Inner Particle Generators</Filter>
+    </ClInclude>
+    <ClInclude Include="InnerSphericalParticlesGenerator.h">
+      <Filter>Файлы заголовков\Generators\Inner Particle Generators</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility.h">
+      <Filter>Файлы заголовков\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="KsiAngleGenerator.h">
+      <Filter>Файлы заголовков\Generators</Filter>
+    </ClInclude>
+    <ClInclude Include="PathGenerator.h">
+      <Filter>Файлы заголовков\Generators</Filter>
+    </ClInclude>
+    <ClInclude Include="IncidentRay.h">
+      <Filter>Файлы заголовков\Simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="OpaqueParticleModel.h">
+      <Filter>Файлы заголовков\Simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="RayTracingSimulator.h">
+      <Filter>Файлы заголовков\Simulation</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Файлы ресурсов</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
