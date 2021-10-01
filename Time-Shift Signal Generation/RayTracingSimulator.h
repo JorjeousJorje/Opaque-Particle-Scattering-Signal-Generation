@@ -136,8 +136,8 @@ private:
 		phi_k = normalizeAngle(phi_k);
 		theta_k = normalizeAngle2PI(theta_k);
 
-		/*phi_k = normalizeAngle2PI(phi_k);
-		theta_k = normalizeAngle(theta_k);*/
+		/*phi_k = normalizeangle2pi(phi_k);
+		theta_k = normalizeangle(theta_k);*/
 
 		/*phi_k = normalizeAngle(phi_k);
 		theta_k = normalizeAngle(theta_k);*/
