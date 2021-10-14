@@ -1,14 +1,9 @@
 #pragma once
-#include <random>
+#include "NumberGenerator.h"
 
 
-class KsiAngleGenerator {
-	std::random_device _rd{};
-	std::mt19937 _gen{ _rd() };
+class KsiAngleGenerator : public NumberGenerator {
 	std::normal_distribution<double> _angleDistribution;
-
-
-
 
 public:
 	KsiAngleGenerator(const double iMean, const double iStd)
@@ -17,7 +12,7 @@ public:
 	}
 
 
-	double generateAngle() {
+	double generate() override {
 		return _angleDistribution(_gen);
 	}
 

@@ -1,14 +1,9 @@
 #pragma once
-#include <random>
+#include "NumberGenerator.h"
 
 
-class PathGenerator {
-	std::random_device _rd{};
-	std::mt19937 _gen{ _rd() };
+class PathGenerator: public NumberGenerator {
 	std::exponential_distribution<double> _pathDistribution;
-
-
-
 
 public:
 	PathGenerator(const double iAlpha)
@@ -17,7 +12,7 @@ public:
 	}
 
 
-	double generatePath() {
+	double generate() override {
 		return _pathDistribution(_gen);
 	}
 

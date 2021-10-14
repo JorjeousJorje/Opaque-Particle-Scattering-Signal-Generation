@@ -28,6 +28,9 @@
     <Filter Include="Файлы заголовков\Simulation">
       <UniqueIdentifier>{15c1458b-b948-4672-8a6b-55ebeb7e9a31}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы заголовков\Physical Laws">
+      <UniqueIdentifier>{c3051b79-a52a-435a-bc9c-a89d5bbb9e1d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Particle.h">
@@ -62,6 +65,15 @@
     </ClInclude>
     <ClInclude Include="RayTracingSimulator.h">
       <Filter>Файлы заголовков\Simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="SnellLaw.h">
+      <Filter>Файлы заголовков\Physical Laws</Filter>
+    </ClInclude>
+    <ClInclude Include="FresnelLaw.h">
+      <Filter>Файлы заголовков\Physical Laws</Filter>
+    </ClInclude>
+    <ClInclude Include="NumberGenerator.h">
+      <Filter>Файлы заголовков\Generators</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

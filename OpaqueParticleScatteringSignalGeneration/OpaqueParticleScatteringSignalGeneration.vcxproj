@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{5f84cd2d-78a7-408e-8502-8e9cc84dfadd}</ProjectGuid>
-    <RootNamespace>TimeShiftSignalGeneration</RootNamespace>
+    <ProjectGuid>{79ed826c-ccdc-4f58-a773-8faedc75ff51}</ProjectGuid>
+    <RootNamespace>OpaqueParticleScatteringSignalGeneration</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -88,9 +88,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(SolutionDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -105,9 +105,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(SolutionDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -122,9 +122,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(SolutionDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,9 +139,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(SolutionDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -151,23 +151,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="NumberGenerator.h" />
-    <ClInclude Include="FresnelLaw.h" />
-    <ClInclude Include="IncidentRay.h" />
-    <ClInclude Include="InnerSphericalParticlesGenerator.h" />
-    <ClInclude Include="KsiAngleGenerator.h" />
-    <ClInclude Include="OpaqueParticleModel.h" />
-    <ClInclude Include="Particle.h" />
-    <ClInclude Include="InnerParticlesGenerator.h" />
-    <ClInclude Include="PathGenerator.h" />
-    <ClInclude Include="RayTracingSimulator.h" />
-    <ClInclude Include="SnellLaw.h" />
-    <ClInclude Include="TimeShiftSignalGenerator.h" />
-    <ClInclude Include="SphericalParticle.h" />
-    <ClInclude Include="Utility.h" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
+    <ClInclude Include="A13SignalGenerator.h" />
+    <ClInclude Include="Config.h" />
+    <ClInclude Include="ConfigParser.h" />
+    <ClInclude Include="LaserParticleParameters.h" />
+    <ClInclude Include="MultipleSignalParametersParser.h" />
+    <ClInclude Include="P21P22ParametersParser.h" />
+    <ClInclude Include="P21ParametersParser.h" />
+    <ClInclude Include="P22ParametersParser.h" />
+    <ClInclude Include="ParameterHolder.h" />
+    <ClInclude Include="ScatteringOrderParameters.h" />
+    <ClInclude Include="P0ParametersParser.h" />
+    <ClInclude Include="LaserParticleConfig.h" />
+    <ClInclude Include="ParametersParsers.h" />
+    <ClInclude Include="Settings.h" />
+    <ClInclude Include="SignalGenerator.h" />
+    <ClInclude Include="SignalHolder.h" />
+    <ClInclude Include="SingleSignalParametersParser.h" />
+    <ClInclude Include="Utility.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

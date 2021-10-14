@@ -10,6 +10,16 @@ struct RefractivePair {
 };
 
 
+struct OpaqueParticleModelConfig {
+	Position pos;
+	double diameter;
+	double velocity;
+	RefractivePair indexes;
+	std::size_t particleNum;
+	double innerParticleDiameter;
+};
+
+
 class OpaqueParticleModel : public SphericalParticle {
 	double _velocity;
 	InnerSphericalParticlesGenerator _generator;
@@ -17,11 +27,11 @@ class OpaqueParticleModel : public SphericalParticle {
 	std::vector<ParticlePtr> _innerParticles;
 
 public:
-	explicit OpaqueParticleModel(RefractivePair iIndexes , const Position& pos, const double iDiameter, const double iVelocity, std::size_t iParticleNum = 0, double iInnerParticleDiameter = 1.0)
-	:	SphericalParticle{ pos, iDiameter },
-		_velocity{ iVelocity },
-		_generator{ 0.0, _radius, iParticleNum, iInnerParticleDiameter },
-		_indexes{ iIndexes },
+	explicit OpaqueParticleModel(const OpaqueParticleModelConfig& config)
+	:	SphericalParticle{ config.pos, config.diameter },
+		_velocity{ config.velocity },
+		_generator{ 0.0, _radius, config.particleNum, config.innerParticleDiameter },
+		_indexes{ config.indexes },
 		_innerParticles{ _generator.generateParticles()}
 	{
 	}

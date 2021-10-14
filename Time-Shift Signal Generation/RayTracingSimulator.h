@@ -3,7 +3,8 @@
 #include <optional>
 #include <cassert>
 
-
+#include "SnellLaw.h"
+#include "FresnelLaw.h"
 #include "OpaqueParticleModel.h"
 #include "IncidentRay.h"
 #include "KsiAngleGenerator.h"
@@ -12,17 +13,6 @@
 
 using namespace std::numbers;
 
-double normalizeAngle2PI(double angle)
-{
-	double a = fmod(angle, 2 * pi);
-	return a >= 0 ? a : a + 2 * pi;
-}
-
-double normalizeAngle(double angle)
-{
-	double a = fmod(angle + pi, 2 * pi);
-	return a >= 0 ? (a - pi) : (a + pi);
-}
 
 struct SimulatorConfig {
 	double _initialIntensity;
@@ -40,8 +30,30 @@ class RayTracingSimulator {
 	SimulatorConfig _config;
 	KsiAngleGenerator _angleGenerator;
 	PathGenerator _pathGenerator;
+	SnellLaw _snellLaw{ _model.getRefractiveIndexes() };
+	FresnelLaw _fresnelLaw{ _model.getRefractiveIndexes() };
 
 	using IncidentRays = std::vector<IncidentRay>;
+
+	std::pair<IncidentRays, double> initializeRays(const double iTheta_i) const {
+		IncidentRays oRays(_config._incidentRaysNumber);
+
+
+		const auto beta_0 = _snellLaw.getTransitionAngle(iTheta_i).value();
+		const auto theta_0 = iTheta_i - beta_0;
+		const auto phi_0 = pi + iTheta_i;
+		const auto r_0 = _model.getRadius();
+
+		const auto [T, R] = _fresnelLaw.getFresnelCoefficients(beta_0, iTheta_i);
+
+		const auto I_0 = _config._initialIntensity * T;
+
+		auto generateFunc = [=]() -> IncidentRay { return { r_0, phi_0, I_0 , theta_0 }; };
+		std::generate(oRays.begin(), oRays.end(), generateFunc);
+
+		return { oRays, _config._initialIntensity * R };
+
+	}
 
 public:
 	RayTracingSimulator(const OpaqueParticleModel& iModel, const SimulatorConfig& iConfig)
@@ -52,40 +64,30 @@ public:
 	{
 	}
 
-	std::optional<double> simulateRayTracing(const double iTimePoint) {
+	std::optional<double> simulateRayTracing(const double iTheta) {
 
-		const auto v = _model.getVelocity();
-		const auto d = _model.getDiameter();
-
-
-		const auto theta_i = std::asin(2.0 * v * iTimePoint / d);
-
-		if (std::isnan(theta_i)) {
+		if (std::isnan(iTheta)) {
 			return std::nullopt;
 		}
 
-		auto [rays, I_0_out] = initializeRays(theta_i);
+		auto [rays, I_0_out] = initializeRays(iTheta);
 		double resultIntensity = I_0_out * static_cast<double>(rays.size());
 
 		for (auto& ray : rays) {
 
 			auto& [r_k, phi_k, I_k, theta_k] = ray;
 
-			while (!Utility::AlmostEqual(I_k, _config._intensityThreshold) && I_k > _config._intensityThreshold) {
-				/*phi_k = normalizeAngle(phi_k);
-				theta_k = normalizeAngle2PI(theta_k);*/
-
-				// phi_k = normalizeAngle2PI(phi_k);
-				// theta_k = normalizeAngle2PI(theta_k);
-
-				/*phi_k = normalizeAngle2PI(phi_k);
-				theta_k = normalizeAngle(theta_k);*/
+			while (I_k > _config._intensityThreshold && !Utility::AlmostEqual(I_k, _config._intensityThreshold, 10e6)) {
 
 				if (!std::isinf(_config.E_L)) {
 					simulateInternalScatterings(ray);
 				}
 
 				simulateInnerSurfaceReflection(ray, resultIntensity);
+
+				if (std::isnan(phi_k) || std::isnan(theta_k) || std::isnan(r_k)) {
+					break;
+				}
 
 			}
 		}
@@ -96,24 +98,35 @@ public:
 
 
 private:
+
 	void simulateInternalScatterings(IncidentRay& iRay) {
 		const auto d = _model.getDiameter();
 
 		auto& [r_k, phi_k, I_k, theta_k] = iRay;
 		while (true) {
 
-			const auto beta_k = phi_k - std::numbers::pi_v<double> - theta_k;
+			if (std::isnan(phi_k) || std::isnan(theta_k) || std::isnan(r_k)) {
+				break;
+			}
 
-			const auto L_k = _pathGenerator.generatePath();
+			const auto beta_k = phi_k - pi - theta_k;
+
+			const auto L_k = _pathGenerator.generate();
 			const auto r_k1 = std::sqrt(L_k * L_k + r_k * r_k - 2 * r_k * L_k * std::cos(beta_k));
+			double a = (r_k - L_k * std::cos(beta_k)) / r_k1;
 			const auto alpha = std::acos((r_k - L_k * std::cos(beta_k)) / r_k1);
 
-			if (Utility::AlmostEqual(r_k1, d / 2.0) || r_k1 > d / 2.0) {
+			if (std::isnan(alpha)) {
+				std::cout << "alpha is NAN!" << std::endl;
+				break;
+			}
+
+			if (r_k1 > d / 2.0  || Utility::AlmostEqual(r_k1, d / 2.0, 10e3)) {
 				break;
 			}
 
 			if (!_model.getInnerParticles().empty()) {
-				const auto ksi = _angleGenerator.generateAngle();
+				const auto ksi = _angleGenerator.generate();
 				theta_k += ksi;
 			}
 
@@ -127,69 +140,28 @@ private:
 
 		auto& [r_k, phi_k, I_k, theta_k] = iRay;
 
+
 		const auto r_k1 = d / 2.0;
 		phi_k = theta_k - std::asin(std::sin(theta_k - phi_k) * r_k / r_k1);
-		const auto theta_prev = theta_k;
-		theta_k = pi - 2.0 * (theta_k + phi_k);
 
+		const auto incidentAngle = theta_k - phi_k;
+		const auto transitionAngle = _snellLaw.getTransitionAngle(incidentAngle, false);
 
-		phi_k = normalizeAngle(phi_k);
-		theta_k = normalizeAngle2PI(theta_k);
-
-		/*phi_k = normalizeangle2pi(phi_k);
-		theta_k = normalizeangle(theta_k);*/
-
-		/*phi_k = normalizeAngle(phi_k);
-		theta_k = normalizeAngle(theta_k);*/
-
-		const auto [T, R] = getFresnelCoefficients(theta_k, theta_prev, false);
-
-		iResultIntensity += I_k * T;
-		I_k *= R;
-		r_k = r_k1;
-	}
-
-	std::pair<IncidentRays, double> initializeRays(const double iTheta_i) const {
-		IncidentRays oRays(_config._incidentRaysNumber);
-		auto [n1, n2] = _model.getRefractiveIndexes();
-
-
-		const auto beta_0 = std::asin(n1 / n2 * std::sin(iTheta_i));
-		const auto theta_0 = iTheta_i - beta_0;
-		const auto phi_0 = pi + iTheta_i;
-		const auto r_0 = _model.getRadius();
-
-		const auto [T, R] = getFresnelCoefficients(theta_0, iTheta_i);
-
-		const auto I_0 = _config._initialIntensity * T;
-
-		auto generateFunc = [=]() -> IncidentRay { return { r_0, phi_0, I_0 , theta_0 }; };
-		std::generate(oRays.begin(), oRays.end(), generateFunc);
-
-		return { oRays, _config._initialIntensity * R };
-
-	}
-
-	std::pair<double, double> getFresnelCoefficients(const double theta_t, const double theta_i, bool outside = true) const {
-
-
-		auto [n1, n2] = _model.getRefractiveIndexes();
-
-		if(!outside) {
-			const auto n1_saved = n1;
-			n1 = n2;
-			n2 = n1_saved;
+		if(transitionAngle.has_value()) {
+			const auto [T, R] = _fresnelLaw.getFresnelCoefficients(transitionAngle.value(), incidentAngle, false);
+			iResultIntensity += I_k * T;
+			I_k *= R;
 		}
 
-		const auto t_s = 2.0 * n1 * std::cos(theta_i) / (n1 * std::cos(theta_i) + n2 * std::cos(theta_t));
-		const auto r_s = (n1 * std::cos(theta_i) - n2 * std::cos(theta_t)) / (n1 * std::cos(theta_i) + n2 * std::cos(theta_t));
+		theta_k = pi - 2.0 * (theta_k - phi_k);
+		r_k = r_k1;
 
+		if (std::isnan(phi_k)) {
+			std::cout << "phi_k is NAN!" << std::endl;
+		}
+		if (std::isnan(theta_k)) {
+			std::cout << "theta_k is NAN!" << std::endl;
+		}
 
-		assert(Utility::AlmostEqual(t_s - r_s, 1.0, 10e6));
-
-		const auto T = n2 * std::cos(theta_t) * t_s * t_s / (n1 * std::cos(theta_i));
-		const auto R = r_s * r_s;
-
-		return { T,  R};
 	}
 };

@@ -1,5 +1,4 @@
 #pragma once
-#include "Particle.h"
 
 struct IncidentRay {
 	double _currentRadius;

@@ -1,0 +1,4 @@
+d = 100
+v = 10.0
+w0 = 10
+output file = signal.txt

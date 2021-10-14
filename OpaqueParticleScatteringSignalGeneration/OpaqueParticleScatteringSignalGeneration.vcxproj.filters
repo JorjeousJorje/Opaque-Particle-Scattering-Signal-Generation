@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков\Utility">
+      <UniqueIdentifier>{f98a8255-4ca8-427d-8b9d-978e02d7dd8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\SignalParametersParser">
+      <UniqueIdentifier>{a15e5885-32c4-4d94-b8ca-48943df6e157}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\SignalGenerators">
+      <UniqueIdentifier>{4986dba1-c82a-4e0e-99a5-6b9f67d8126e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\SetupConfig">
+      <UniqueIdentifier>{724ca2c7-5cfc-4182-b4b1-480653927519}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\SignalParametersParser\Parameters">
+      <UniqueIdentifier>{2a1f221c-c624-4853-aad3-c846ee220cb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\SignalParametersParser\Parsers">
+      <UniqueIdentifier>{6482d173-b5d2-4b55-9d90-40caa62d7b28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\SignalParametersParser\Parsers\SingleParametersParsers">
+      <UniqueIdentifier>{786d76ab-ab57-458d-983a-795bf16d7803}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\SignalParametersParser\Parsers\MultipleParametersParsers">
+      <UniqueIdentifier>{a0642ccc-1f27-4ffd-9f95-4dce0a754e77}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Файлы ресурсов</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Utility.h">
+      <Filter>Файлы заголовков\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="SignalGenerator.h">
+      <Filter>Файлы заголовков\SignalGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="LaserParticleConfig.h">
+      <Filter>Файлы заголовков\SetupConfig</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigParser.h">
+      <Filter>Файлы заголовков\SetupConfig</Filter>
+    </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>Файлы заголовков\SetupConfig</Filter>
+    </ClInclude>
+    <ClInclude Include="A13SignalGenerator.h">
+      <Filter>Файлы заголовков\SignalGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="Settings.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="ParametersParsers.h">
+      <Filter>Файлы заголовков\SignalParametersParser</Filter>
+    </ClInclude>
+    <ClInclude Include="ScatteringOrderParameters.h">
+      <Filter>Файлы заголовков\SignalParametersParser\Parameters</Filter>
+    </ClInclude>
+    <ClInclude Include="LaserParticleParameters.h">
+      <Filter>Файлы заголовков\SignalParametersParser\Parameters</Filter>
+    </ClInclude>
+    <ClInclude Include="P0ParametersParser.h">
+      <Filter>Файлы заголовков\SignalParametersParser\Parsers\SingleParametersParsers</Filter>
+    </ClInclude>
+    <ClInclude Include="P21ParametersParser.h">
+      <Filter>Файлы заголовков\SignalParametersParser\Parsers\SingleParametersParsers</Filter>
+    </ClInclude>
+    <ClInclude Include="P22ParametersParser.h">
+      <Filter>Файлы заголовков\SignalParametersParser\Parsers\SingleParametersParsers</Filter>
+    </ClInclude>
+    <ClInclude Include="SingleSignalParametersParser.h">
+      <Filter>Файлы заголовков\SignalParametersParser\Parsers\SingleParametersParsers</Filter>
+    </ClInclude>
+    <ClInclude Include="MultipleSignalParametersParser.h">
+      <Filter>Файлы заголовков\SignalParametersParser\Parsers\MultipleParametersParsers</Filter>
+    </ClInclude>
+    <ClInclude Include="P21P22ParametersParser.h">
+      <Filter>Файлы заголовков\SignalParametersParser\Parsers\MultipleParametersParsers</Filter>
+    </ClInclude>
+    <ClInclude Include="ParameterHolder.h">
+      <Filter>Файлы заголовков\SignalParametersParser\Parsers\MultipleParametersParsers</Filter>
+    </ClInclude>
+    <ClInclude Include="SignalHolder.h">
+      <Filter>Файлы заголовков\SignalGenerators</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -1,7 +1,8 @@
 #pragma once
+#pragma once
 #include <algorithm>
-#include <sciplot/Vec.hpp>
 #include <limits>
+#include <valarray>
 
 #undef  min
 #undef  max
@@ -9,6 +10,8 @@
 
 namespace Utility
 {
+	using vec = std::valarray<double>;
+
 	template<class T>
 	std::enable_if_t<!std::numeric_limits<T>::is_integer, bool>
 		AlmostEqual(T x, T y, const double ulp = 10.0) {
@@ -17,10 +20,9 @@ namespace Utility
 
 	}
 
-
 	template <typename T0, typename T1>
-	sciplot::Vec GenerateLinspace(T0 iX0, T1 iX1, const std::size_t iIntervalCount) {
-		sciplot::Vec oLinspace(iIntervalCount + 1);
+	vec GenerateLinspace(T0 iX0, T1 iX1, const std::size_t iIntervalCount) {
+		vec oLinspace(iIntervalCount + 1);
 		auto step = (iX1 - iX0) / static_cast<double>(iIntervalCount);
 		for (std::size_t i = 0; i <= iIntervalCount; ++i) {
 			oLinspace[i] = iX0 + static_cast<double>(i) * step;
@@ -30,20 +32,20 @@ namespace Utility
 	}
 
 	template <typename T0, typename T1>
-	sciplot::Vec GenerateLinspaceWithStep(T0 iX0, T1 iX1, const double iStep) {
+	vec GenerateLinspaceWithStep(T0 iX0, T1 iX1, const double iStep) {
 		auto numSteps = static_cast<std::size_t>((iX1 - iX0) / iStep);
 		return GenerateLinspace(iX0, iX1, numSteps);
 	}
 
-	inline sciplot::Vec GenerateZeroArray(const std::size_t iCount) {
-		sciplot::Vec oValues(iCount);
+	inline vec GenerateZeroArray(const std::size_t iCount) {
+		vec oValues(iCount);
 		std::fill(std::begin(oValues), std::end(oValues), 0.0);
 		return oValues;
 	}
 
 
-	inline sciplot::Vec GenerateNumberArray(const std::size_t iCount, const double iNumber) {
-		sciplot::Vec oValues(iCount);
+	inline vec GenerateNumberArray(const std::size_t iCount, const double iNumber) {
+		vec oValues(iCount);
 		std::fill(std::begin(oValues), std::end(oValues), iNumber);
 		return oValues;
 	}
