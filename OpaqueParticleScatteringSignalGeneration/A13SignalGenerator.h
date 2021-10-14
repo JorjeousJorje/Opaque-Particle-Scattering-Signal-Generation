@@ -86,12 +86,9 @@ public:
 private:
 
 	OffsetTimes initTimeOffsets() const {
-		/*const double t0 = _LPParams.d / (2.0 * _LPParams.v) * std::sin(_params.paramsP0.theta);
-		const double t1 = _LPParams.d / (2.0 * _LPParams.v) * (std::sin(_params.paramsP21.theta) + std::sin(_params.paramsP22.theta)) + t0;
-		const double t2 = _LPParams.d / (1.0 * _LPParams.v) * std::sin(_params.paramsP22.theta) + t0;*/
 		const double t0 = _LPParams.d / (2.0 * _LPParams.v) * std::sin(_params.paramsP0.theta);
-		const double t1 = _LPParams.d / (2.0 * _LPParams.v) * std::sin(_params.paramsP21.theta) + t0;
-		const double t2 = _LPParams.d / (1.0 * _LPParams.v) * std::sin(_params.paramsP22.theta) + t0;
+		const double t1 = _LPParams.d / (2.0 * _LPParams.v) * std::sin(_params.paramsP21.theta);
+		const double t2 = _LPParams.d / (2.0 * _LPParams.v) * std::sin(_params.paramsP22.theta);
 		return { t0, t1, t2 };
 	}
 

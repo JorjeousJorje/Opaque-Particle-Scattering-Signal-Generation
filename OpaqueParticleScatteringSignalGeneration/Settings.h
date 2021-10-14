@@ -10,8 +10,8 @@ constexpr inline std::string_view filePathLaserConfig{ "config.txt" };
 
 static inline LaserParticleConfig config{};
 
-constexpr double thetaScattering = 155.0;
+constexpr double thetaScattering = 165.0;
 constexpr double tStart = 0.0;
 constexpr double tEnd = 15.0;
 
-constexpr Polarization pol = Polarization::two;
+constexpr Polarization pol = Polarization::one;

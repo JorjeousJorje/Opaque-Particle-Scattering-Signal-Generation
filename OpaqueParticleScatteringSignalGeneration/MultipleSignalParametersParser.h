@@ -17,14 +17,20 @@ protected:
 	std::istringstream _parameters{};
 
 	using Modes = std::initializer_list<ScatteringMode>;
-	using Params = std::vector<ScatteringOrderParameters>;
+	using Params = std::map<ScatteringMode, ScatteringOrderParameters>;
 
 public:
 	virtual ~MultipleSignalParametersParser() = default;
 
 	std::optional<ParameterHolder> parseSignalParameters(const Modes& iModes, const std::string& iFilePath, double iThetaSca) {
 		std::ifstream file{ iFilePath };
-		Params oParams(iModes.size());
+		Params oParams{};
+
+		for(const auto& mode: iModes) {
+			oParams[mode] = {};
+		}
+
+
 		for (std::string buffer; std::getline(file, buffer, '\n'); ) {
 
 			if (setParameters(oParams, buffer, iThetaSca)) {
@@ -37,17 +43,8 @@ public:
 			return std::nullopt;
 		}
 
-		std::map<ScatteringMode, ScatteringOrderParameters> resultParams{};
-
-		// TODO: fix this. It can be better!
-		std::transform(std::begin(iModes), std::end(iModes), oParams.begin(), oParams.begin(),
-			[&](const ScatteringMode& iMode, ScatteringOrderParameters& iParam) 
-			{	iParam.mode = iMode;
-				resultParams[iMode] = iParam;
-				return iParam; });
-
 		_parameters.clear();
-		return ParameterHolder{ resultParams };
+		return ParameterHolder{ oParams };
 	}
 
 	std::optional<ParameterHolder> parseSignalParameters(const Modes& iModes, const std::string_view& iFilePath, double iThetaSca) {
@@ -57,32 +54,38 @@ public:
 protected:
 
 	bool setParameters(Params& iParams, const std::string& iBuffer, const double iThetaSca) {
-		double thetaSca;
-		double m;
+		double thetaSca{};
+		double m{};
 		_parameters.str(iBuffer);
 		_parameters >> m;
 		_parameters >> thetaSca;
 
 
 		if (Utility::AlmostEqual(iThetaSca, thetaSca, 10e6)) {
+			// ignore '/t' before theta0
+			_parameters.ignore(1);
+			skipTheta0();
 
-			setAngles(iParams, thetaSca);
+			setAnglesRefractiveIndex(iParams, thetaSca, m);
 			setAmplitidesWithP1(iParams);
 			setAmplitidesWithP2(iParams);
-			setRefractiveIndex(iParams, m);
 			return true;
 		}
 
 		return false;
 	}
 	bool foundThetaScattering(const Params& iParams, const double iThetaSca) {
-		if (!iParams.front().thetaSca.has_value()) {
-			std::cout << "<parse warning>: file with P0 doesn't have ";
-			std::cout << std::setprecision(4);
-			std::cout << iThetaSca;
-			std::cout << " scattering angle" << std::endl;
-			_parameters.clear();
-			return false;
+
+		for(auto&& [mode, param] : iParams) {
+
+			if (!param.thetaSca.has_value()) {
+				std::cout << "<parse warning>: file with P" + std::to_string(Utility::to_underlying(param.mode)) + " doesn't have ";
+				std::cout << std::setprecision(4);
+				std::cout << iThetaSca;
+				std::cout << " scattering angle" << std::endl;
+				_parameters.clear();
+				return false;
+			}
 		}
 		return true;
 	}
@@ -95,30 +98,24 @@ protected:
 		_parameters.ignore(std::numeric_limits<std::streamsize>::max(), '\t');
 	}
 
-	void setAngles(Params& iParams, double iThetaSca) {
-		// ignore '/t' before theta0
-		_parameters.ignore(1);
-		skipTheta0();
-		for (auto& param : iParams) {
+	void setAnglesRefractiveIndex(Params& iParams, double iThetaSca, const double iIndex) {
+		for (auto& [mode, param] : iParams) {
 			param.thetaSca.emplace(iThetaSca);
+			param.mode = mode;
+			param.m = iIndex;
 			_parameters >> param.theta;
 		}
 	}
 	void setAmplitidesWithP1(Params& iParams) {
-		for (auto& param : iParams) {
+		for (auto& [mode, param] : iParams) {
 			_parameters >> param.ampP1;
 		}
 	}
 
 	void setAmplitidesWithP2(Params& iParams) {
-		for (auto& param : iParams) {
+		for (auto& [mode, param] : iParams) {
 			_parameters >> param.ampP2;
 		}
-	}
-
-	void setRefractiveIndex(Params& iParams, const double iIndex) {
-		std::for_each(iParams.begin(), iParams.end(), 
-			[=](ScatteringOrderParameters& param) {param.m = iIndex; });
 	}
 
 };

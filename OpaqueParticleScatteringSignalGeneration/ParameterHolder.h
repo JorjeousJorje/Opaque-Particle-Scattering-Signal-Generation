@@ -17,7 +17,7 @@ public:
 	{
 	}
 
-	ScatteringOrderParameters operator[](const ScatteringMode& iMode) const
+	const ScatteringOrderParameters& operator[](const ScatteringMode& iMode) const
 	{
 		return _params.at(iMode);
 	}

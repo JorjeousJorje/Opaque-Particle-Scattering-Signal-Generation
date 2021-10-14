@@ -63,7 +63,7 @@ protected:
 	}
 	bool foundThetaScattering(const ScatteringOrderParameters& iParams, const double iThetaSca) {
 		if (!iParams.thetaSca.has_value()) {
-			std::cout << "<parse warning>: file with P0 doesn't have ";
+			std::cout << "<parse warning>: file with P" + std::to_string(Utility::to_underlying(iParams.mode)) + "doesn't have ";
 			std::cout << std::setprecision(4);
 			std::cout << iThetaSca;
 			std::cout << " scattering angle" << std::endl;

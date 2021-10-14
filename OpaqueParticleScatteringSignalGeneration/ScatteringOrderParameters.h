@@ -1,4 +1,5 @@
 #pragma once
+
 enum class ScatteringMode: uint8_t {
 	P0,
 	P21 = 21,

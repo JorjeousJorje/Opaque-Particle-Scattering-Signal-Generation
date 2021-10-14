@@ -1,5 +1,6 @@
 #pragma once
 #include <map>
+#include <numeric>
 #include <optional>
 #include <vector>
 
@@ -15,10 +16,18 @@ public:
 	{
 	}
 
-
-	// TODO: return ref with exception!
-	valVec operator[](const ScatteringMode& iMode) const
+	const valVec& operator[](const ScatteringMode& iMode) const
 	{
 		return _signals.at(iMode);
 	}
+
+	valVec getResultSignal() const {
+		valVec oResultSignal = _signals.begin()->second;
+		std::for_each(std::next(_signals.begin()), _signals.end(), [&](const auto& pair)
+		{
+				oResultSignal += pair.second;
+		});
+		return oResultSignal;
+	}
+
 };

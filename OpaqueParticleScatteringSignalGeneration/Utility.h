@@ -12,6 +12,12 @@ namespace Utility
 {
 	using vec = std::valarray<double>;
 
+	template <typename E>
+	constexpr auto to_underlying(E e) noexcept
+	{
+		return static_cast<std::underlying_type_t<E>>(e);
+	}
+
 	template<class T>
 	std::enable_if_t<!std::numeric_limits<T>::is_integer, bool>
 		AlmostEqual(T x, T y, const double ulp = 10.0) {
