@@ -37,6 +37,12 @@
     <Filter Include="Файлы заголовков\SignalParametersParser\Parsers\MultipleParametersParsers">
       <UniqueIdentifier>{a0642ccc-1f27-4ffd-9f95-4dce0a754e77}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы заголовков\SignalGenerators\Areas">
+      <UniqueIdentifier>{20c55300-f78d-4ebd-893b-2a8e683acabb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\SignalGenerators\OrderGenerators">
+      <UniqueIdentifier>{5491dc90-98bd-45fc-ace2-d3719f40274d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -47,9 +53,6 @@
     <ClInclude Include="Utility.h">
       <Filter>Файлы заголовков\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="SignalGenerator.h">
-      <Filter>Файлы заголовков\SignalGenerators</Filter>
-    </ClInclude>
     <ClInclude Include="LaserParticleConfig.h">
       <Filter>Файлы заголовков\SetupConfig</Filter>
     </ClInclude>
@@ -58,9 +61,6 @@
     </ClInclude>
     <ClInclude Include="Config.h">
       <Filter>Файлы заголовков\SetupConfig</Filter>
-    </ClInclude>
-    <ClInclude Include="A13SignalGenerator.h">
-      <Filter>Файлы заголовков\SignalGenerators</Filter>
     </ClInclude>
     <ClInclude Include="Settings.h">
       <Filter>Файлы заголовков</Filter>
@@ -97,6 +97,36 @@
     </ClInclude>
     <ClInclude Include="SignalHolder.h">
       <Filter>Файлы заголовков\SignalGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="A13SignalGenerator.h">
+      <Filter>Файлы заголовков\SignalGenerators\Areas</Filter>
+    </ClInclude>
+    <ClInclude Include="A1SignalGenerator.h">
+      <Filter>Файлы заголовков\SignalGenerators\Areas</Filter>
+    </ClInclude>
+    <ClInclude Include="FourOrdersSignalGenerator.h">
+      <Filter>Файлы заголовков\SignalGenerators\OrderGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="OneOrderSignalGenerator.h">
+      <Filter>Файлы заголовков\SignalGenerators\OrderGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreeOrdersSignalGenerator.h">
+      <Filter>Файлы заголовков\SignalGenerators\OrderGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="TwoOrdersSignalGenerator.h">
+      <Filter>Файлы заголовков\SignalGenerators\OrderGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="SignalGenerator.h">
+      <Filter>Файлы заголовков\SignalGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="FiveOrdersSignalGenerator.h">
+      <Filter>Файлы заголовков\SignalGenerators\OrderGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="A2SignalGenerator.h">
+      <Filter>Файлы заголовков\SignalGenerators\Areas</Filter>
+    </ClInclude>
+    <ClInclude Include="A3SignalGenerator.h">
+      <Filter>Файлы заголовков\SignalGenerators\Areas</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

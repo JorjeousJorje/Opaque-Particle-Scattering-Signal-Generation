@@ -10,11 +10,11 @@ public:
 
 
 
-	std::optional<ParameterHolder> parseSignalParameters(const std::string& iFilePath, double iThetaSca) override {
+	ParameterHolder parseSignalParameters(const std::string& iFilePath, double iThetaSca) override {
 		return MultipleSignalParametersParser::parseSignalParameters({ScatteringMode::P21, ScatteringMode::P22}, iFilePath, iThetaSca);
 	}
 
-	std::optional<ParameterHolder> parseSignalParameters(const std::string_view& iFilePath, double iThetaSca) override {
+	ParameterHolder parseSignalParameters(const std::string_view& iFilePath, double iThetaSca) override {
 		return MultipleSignalParametersParser::parseSignalParameters({ ScatteringMode::P21, ScatteringMode::P22 }, iFilePath, iThetaSca);
 	}
 };

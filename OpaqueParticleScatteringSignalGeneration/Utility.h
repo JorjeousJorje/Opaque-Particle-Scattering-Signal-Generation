@@ -2,6 +2,7 @@
 #pragma once
 #include <algorithm>
 #include <limits>
+#include <numbers>
 #include <valarray>
 
 #undef  min
@@ -11,6 +12,11 @@
 namespace Utility
 {
 	using vec = std::valarray<double>;
+
+
+	inline double radians(const double angle) {
+		return angle * std::numbers::pi / 180.0;
+	}
 
 	template <typename E>
 	constexpr auto to_underlying(E e) noexcept

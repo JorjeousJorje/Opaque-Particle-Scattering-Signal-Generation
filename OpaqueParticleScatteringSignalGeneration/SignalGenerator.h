@@ -1,9 +1,9 @@
 #pragma once
 #include <valarray>
 
-class SignalHolder;
-using valVec = std::valarray<double>;
-using Vector = std::vector<double>;
+#include "SignalHolder.h"
+#include "LaserParticleParameters.h"
+
 
 enum class Polarization: uint8_t {
 	one = 1,
@@ -11,8 +11,15 @@ enum class Polarization: uint8_t {
 };
 
 class SignalGenerator {
+protected:
+	LaserParticleParameters _laserParticleParams;
 public:
+
+	SignalGenerator(const LaserParticleParameters& iLPParams)
+		: _laserParticleParams{ iLPParams }
+	{
+	}
+
 	virtual ~SignalGenerator() = default;
 	virtual SignalHolder generateSignal(const valVec&, const Polarization&) = 0;
-	virtual Vector generateSignal(const Vector&, const Polarization&) = 0;
 };

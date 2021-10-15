@@ -1,17 +1,19 @@
 #pragma once
-#include <map>
+#include <unordered_map>
 #include <numeric>
-#include <optional>
+#include <algorithm>
 #include <vector>
 
 #include "ScatteringOrderParameters.h"
-#include "SignalGenerator.h"
+
+using valVec = std::valarray<double>;
+
 
 class SignalHolder {
-	std::map<ScatteringMode, valVec> _signals;
+	std::unordered_map<ScatteringMode, valVec> _signals;
 
 public:
-	explicit SignalHolder(std::map<ScatteringMode, valVec> iSignals)
+	explicit SignalHolder(std::unordered_map<ScatteringMode, valVec> iSignals)
 	:	_signals{ std::move(iSignals)}
 	{
 	}
@@ -23,10 +25,14 @@ public:
 
 	valVec getResultSignal() const {
 		valVec oResultSignal = _signals.begin()->second;
-		std::for_each(std::next(_signals.begin()), _signals.end(), [&](const auto& pair)
-		{
-				oResultSignal += pair.second;
-		});
+
+		if (_signals.size() > 1) {
+			std::for_each(std::next(_signals.begin()), _signals.end(), [&](const auto& pair)
+				{
+					oResultSignal += pair.second;
+				});
+		}
+
 		return oResultSignal;
 	}
 

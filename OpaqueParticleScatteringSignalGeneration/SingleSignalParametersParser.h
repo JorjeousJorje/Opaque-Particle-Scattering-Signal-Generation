@@ -5,6 +5,7 @@
 #include <iostream>
 #include <sstream>
 #include <iomanip>
+#include <numbers>
 #include <string_view>
 
 #include "ScatteringOrderParameters.h"
@@ -23,7 +24,7 @@ public:
 		ScatteringOrderParameters params;
 		for (std::string buffer; std::getline(file, buffer, '\n'); ) {
 
-			if (setParameters(params, buffer, iThetaSca)) {
+			if (setParameters(params, buffer, iThetaSca, iMode)) {
 				break;
 			}
 
@@ -44,7 +45,7 @@ public:
 
 protected:
 
-	bool setParameters(ScatteringOrderParameters& iParams, const std::string& iBuffer, const double iThetaSca) {
+	bool setParameters(ScatteringOrderParameters& iParams, const std::string& iBuffer, const double iThetaSca, const ScatteringMode& iMode) {
 		double thetaSca;
 		_parameters.str(iBuffer);
 		_parameters >> iParams.m;
@@ -52,8 +53,15 @@ protected:
 
 
 		if (Utility::AlmostEqual(iThetaSca, thetaSca, 10e6)) {
+			double theta;
 			iParams.thetaSca.emplace(thetaSca);
-			_parameters >> iParams.theta;
+			_parameters >> theta;
+
+			if (iMode == ScatteringMode::P0) {
+				theta *= -1;
+			}
+
+			iParams.theta = Utility::radians(theta);
 			_parameters >> iParams.ampP1;
 			_parameters >> iParams.ampP2;
 			return true;
@@ -75,4 +83,8 @@ protected:
 
 	virtual std::optional<ScatteringOrderParameters> parseSignalParameters(const std::string& iFilePath, double iThetaSca) { return {}; }
 	virtual std::optional<ScatteringOrderParameters> parseSignalParameters(const std::string_view& iFilePath, double iThetaSca) { return {}; }
+
+
+private:
+	
 };

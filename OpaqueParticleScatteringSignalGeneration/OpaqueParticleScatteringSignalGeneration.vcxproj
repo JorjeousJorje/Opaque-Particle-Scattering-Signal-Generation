@@ -155,10 +155,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="A13SignalGenerator.h" />
+    <ClInclude Include="A1SignalGenerator.h" />
+    <ClInclude Include="A2SignalGenerator.h" />
+    <ClInclude Include="A3SignalGenerator.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="ConfigParser.h" />
+    <ClInclude Include="FiveOrdersSignalGenerator.h" />
+    <ClInclude Include="FourOrdersSignalGenerator.h" />
     <ClInclude Include="LaserParticleParameters.h" />
     <ClInclude Include="MultipleSignalParametersParser.h" />
+    <ClInclude Include="OneOrderSignalGenerator.h" />
     <ClInclude Include="P21P22ParametersParser.h" />
     <ClInclude Include="P21ParametersParser.h" />
     <ClInclude Include="P22ParametersParser.h" />
@@ -171,6 +177,8 @@
     <ClInclude Include="SignalGenerator.h" />
     <ClInclude Include="SignalHolder.h" />
     <ClInclude Include="SingleSignalParametersParser.h" />
+    <ClInclude Include="ThreeOrdersSignalGenerator.h" />
+    <ClInclude Include="TwoOrdersSignalGenerator.h" />
     <ClInclude Include="Utility.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -22,7 +22,7 @@ int main() {
 
 	const auto laserParameters = config.getLaserParticleParameters();
 	const auto paramsP0 = P0parser.parseSignalParameters(filePathParametersP0, thetaScattering).value();
-	const auto paramsP21P22 = P21P22Parser.parseSignalParameters(filePathParametersP21P22, thetaScattering).value();
+	const auto paramsP21P22 = P21P22Parser.parseSignalParameters(filePathParametersP21P22, thetaScattering);
 
 	const auto& paramsP21 = paramsP21P22[ScatteringMode::P21];
 	const auto& paramsP22 = paramsP21P22[ScatteringMode::P22];
@@ -44,10 +44,10 @@ int main() {
 	plot.drawCurve(time, p0).label("p0").lineWidth(2);
 	plot.drawCurve(time, p21).label("p21").lineWidth(2);
 	plot.drawCurve(time, p22).label("p22").lineWidth(2);
-	plot.save("Orders with theta scattering=" + std::to_string(thetaScattering) + ", pol=" + std::to_string(to_underlying(pol)) + ".pdf");
-	plot.clear();
+	// plot.save("Orders with theta scattering=" + std::to_string(thetaScattering) + ", pol=" + std::to_string(to_underlying(pol)) + ".pdf");
 
 	plot.drawCurve(time, signal).label("p0 + p21 + p22").lineWidth(4);
-	plot.save("Whole signal with theta scattering=" + std::to_string(thetaScattering) + ", pol=" + std::to_string(to_underlying(pol)) + ".pdf");
+	plot.show();
+	// plot.save("Whole signal with theta scattering=" + std::to_string(thetaScattering) + ", pol=" + std::to_string(to_underlying(pol)) + ".pdf");
 	return 0;
 }

@@ -1,12 +1,10 @@
 #pragma once
-#include <optional>
-#include <vector>
-
+#include <unordered_map>
 #include "ScatteringOrderParameters.h"
 
 
 class ParameterHolder {
-	using Params = std::map<ScatteringMode, ScatteringOrderParameters>;
+	using Params = std::unordered_map<ScatteringMode, ScatteringOrderParameters>;
 	Params _params;
 
 
@@ -20,5 +18,9 @@ public:
 	const ScatteringOrderParameters& operator[](const ScatteringMode& iMode) const
 	{
 		return _params.at(iMode);
+	}
+
+	bool empty() const {
+		return _params.empty();
 	}
 };

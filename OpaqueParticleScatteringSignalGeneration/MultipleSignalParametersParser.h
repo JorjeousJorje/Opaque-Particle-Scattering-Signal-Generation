@@ -17,19 +17,18 @@ protected:
 	std::istringstream _parameters{};
 
 	using Modes = std::initializer_list<ScatteringMode>;
-	using Params = std::map<ScatteringMode, ScatteringOrderParameters>;
+	using Params = std::unordered_map<ScatteringMode, ScatteringOrderParameters>;
 
 public:
 	virtual ~MultipleSignalParametersParser() = default;
 
-	std::optional<ParameterHolder> parseSignalParameters(const Modes& iModes, const std::string& iFilePath, double iThetaSca) {
+	ParameterHolder parseSignalParameters(const Modes& iModes, const std::string& iFilePath, double iThetaSca) {
 		std::ifstream file{ iFilePath };
 		Params oParams{};
 
 		for(const auto& mode: iModes) {
 			oParams[mode] = {};
 		}
-
 
 		for (std::string buffer; std::getline(file, buffer, '\n'); ) {
 
@@ -40,14 +39,14 @@ public:
 		}
 
 		if (!foundThetaScattering(oParams, iThetaSca)) {
-			return std::nullopt;
+			return ParameterHolder{{}};
 		}
 
 		_parameters.clear();
 		return ParameterHolder{ oParams };
 	}
 
-	std::optional<ParameterHolder> parseSignalParameters(const Modes& iModes, const std::string_view& iFilePath, double iThetaSca) {
+	ParameterHolder parseSignalParameters(const Modes& iModes, const std::string_view& iFilePath, double iThetaSca) {
 		return parseSignalParameters(iModes, std::string{ iFilePath.data() }, iThetaSca);
 	}
 
@@ -90,8 +89,8 @@ protected:
 		return true;
 	}
 
-	virtual std::optional<ParameterHolder> parseSignalParameters(const std::string& iFilePath, double iThetaSca) { return {}; }
-	virtual std::optional<ParameterHolder> parseSignalParameters(const std::string_view& iFilePath, double iThetaSca) { return {}; }
+	virtual ParameterHolder parseSignalParameters(const std::string& iFilePath, double iThetaSca) { return ParameterHolder{ {} }; }
+	virtual ParameterHolder parseSignalParameters(const std::string_view& iFilePath, double iThetaSca) { return ParameterHolder{ {} }; }
 
 
 	void skipTheta0() {
@@ -99,11 +98,13 @@ protected:
 	}
 
 	void setAnglesRefractiveIndex(Params& iParams, double iThetaSca, const double iIndex) {
+		double theta;
 		for (auto& [mode, param] : iParams) {
 			param.thetaSca.emplace(iThetaSca);
 			param.mode = mode;
 			param.m = iIndex;
-			_parameters >> param.theta;
+			_parameters >> theta;
+			param.theta = Utility::radians(theta);
 		}
 	}
 	void setAmplitidesWithP1(Params& iParams) {
