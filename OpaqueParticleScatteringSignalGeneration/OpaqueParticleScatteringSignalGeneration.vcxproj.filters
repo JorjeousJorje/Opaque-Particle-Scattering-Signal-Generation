@@ -155,5 +155,8 @@
     <ClInclude Include="A12SignalGenerator.h">
       <Filter>Файлы заголовков\SignalGenerators\Areas</Filter>
     </ClInclude>
+    <ClInclude Include="Areas.h">
+      <Filter>Файлы заголовков\SignalGenerators\Areas</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

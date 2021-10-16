@@ -167,6 +167,7 @@
     <ClInclude Include="A7SignalGenerator.h" />
     <ClInclude Include="A8SignalGenerator.h" />
     <ClInclude Include="A9SignalGenerator.h" />
+    <ClInclude Include="Areas.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="ConfigParser.h" />
     <ClInclude Include="FiveOrdersSignalGenerator.h" />

@@ -22,7 +22,7 @@ protected:
 public:
 	virtual ~MultipleSignalParametersParser() = default;
 
-	ParameterHolder parseSignalParameters(const Modes& iModes, const std::string& iFilePath, double iThetaSca) {
+	virtual ParameterHolder parseSignalParameters(const Modes& iModes, const std::string& iFilePath, double iThetaSca) {
 		std::ifstream file{ iFilePath };
 		Params oParams{};
 
@@ -46,7 +46,7 @@ public:
 		return ParameterHolder{ oParams };
 	}
 
-	ParameterHolder parseSignalParameters(const Modes& iModes, const std::string_view& iFilePath, double iThetaSca) {
+	virtual ParameterHolder parseSignalParameters(const Modes& iModes, const std::string_view& iFilePath, double iThetaSca) {
 		return parseSignalParameters(iModes, std::string{ iFilePath.data() }, iThetaSca);
 	}
 

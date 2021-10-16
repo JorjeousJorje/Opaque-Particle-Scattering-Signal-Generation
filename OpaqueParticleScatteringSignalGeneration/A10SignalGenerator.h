@@ -7,10 +7,10 @@
 #include "Utility.h"
 
 
-class A9SignalGenerator final : public FiveOrdersSignalGenerator {
+class A10SignalGenerator final : public FiveOrdersSignalGenerator {
 
 public:
-	explicit A9SignalGenerator(	const FiveOrdersParameters& iParams,
+	explicit A10SignalGenerator(const FiveOrdersParameters& iParams,
 								const LaserParticleParameters LPParams)
 	:	FiveOrdersSignalGenerator{ iParams , LPParams }
 	{

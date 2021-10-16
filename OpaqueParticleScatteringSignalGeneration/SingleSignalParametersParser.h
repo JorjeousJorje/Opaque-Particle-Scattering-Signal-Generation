@@ -19,7 +19,7 @@ protected:
 public:
 	virtual ~SingleSignalParametersParser() = default;
 
-	std::optional<ScatteringOrderParameters> parseSignalParameters(const ScatteringMode& iMode, const std::string& iFilePath, double iThetaSca) {
+	virtual std::optional<ScatteringOrderParameters> parseSignalParameters(const ScatteringMode& iMode, const std::string& iFilePath, double iThetaSca) {
 		std::ifstream file{ iFilePath };
 		ScatteringOrderParameters params;
 		for (std::string buffer; std::getline(file, buffer, '\n'); ) {
@@ -39,7 +39,7 @@ public:
 		return params;
 	};
 
-	std::optional<ScatteringOrderParameters> parseSignalParameters(const ScatteringMode& iMode, const std::string_view& iFilePath, double iThetaSca) {
+	virtual std::optional<ScatteringOrderParameters> parseSignalParameters(const ScatteringMode& iMode, const std::string_view& iFilePath, double iThetaSca) {
 		return parseSignalParameters(iMode, std::string{ iFilePath.data() }, iThetaSca);
 	}
 

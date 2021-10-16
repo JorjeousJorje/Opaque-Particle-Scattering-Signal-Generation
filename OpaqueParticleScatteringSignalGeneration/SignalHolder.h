@@ -23,7 +23,7 @@ public:
 		return _signals.at(iMode);
 	}
 
-	valVec getResultSignal() const {
+	[[nodiscard]] valVec getResultSignal() const {
 		valVec oResultSignal = _signals.begin()->second;
 
 		if (_signals.size() > 1) {
