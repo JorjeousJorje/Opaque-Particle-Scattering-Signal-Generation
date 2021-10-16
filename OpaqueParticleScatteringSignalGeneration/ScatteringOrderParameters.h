@@ -5,6 +5,7 @@ enum class ScatteringMode: uint8_t {
 	P1,
 	P21 = 21,
 	P22 = 22,
+	P23 = 23,
 	P31 = 31,
 	P32 = 32
 };

@@ -154,10 +154,19 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="A10SignalGenerator.h" />
+    <ClInclude Include="A11SignalGenerator.h" />
+    <ClInclude Include="A12SignalGenerator.h" />
     <ClInclude Include="A13SignalGenerator.h" />
     <ClInclude Include="A1SignalGenerator.h" />
     <ClInclude Include="A2SignalGenerator.h" />
     <ClInclude Include="A3SignalGenerator.h" />
+    <ClInclude Include="A4SignalGenerator.h" />
+    <ClInclude Include="A5SignalGenerator.h" />
+    <ClInclude Include="A6SignalGenerator.h" />
+    <ClInclude Include="A7SignalGenerator.h" />
+    <ClInclude Include="A8SignalGenerator.h" />
+    <ClInclude Include="A9SignalGenerator.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="ConfigParser.h" />
     <ClInclude Include="FiveOrdersSignalGenerator.h" />

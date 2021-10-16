@@ -7,14 +7,14 @@
 #include "Utility.h"
 
 
-class A2SignalGenerator final : public FourOrdersSignalGenerator {
-
+class A7SignalGenerator final : public FourOrdersSignalGenerator {
 
 public:
-	A2SignalGenerator(const FourOrdersParameters& iParams, const LaserParticleParameters& iLPParams)
-	:	FourOrdersSignalGenerator{ iParams , iLPParams }
+	explicit A7SignalGenerator(const FourOrdersParameters& iParams,
+							   const LaserParticleParameters LPParams)
+	:	FourOrdersSignalGenerator{ iParams , LPParams }
 	{
-		const std::unordered_set mods{	iParams.params0.mode,
+		const std::unordered_set mods{  iParams.params0.mode,
 										iParams.params1.mode,
 										iParams.params2.mode,
 										iParams.params3.mode };
@@ -24,18 +24,18 @@ public:
 			std::cout << "<A1SignalGenerator>: there is no " + modeString + "mode, possibly result signal is wrong!" << std::endl;
 		}
 
-		if (!mods.count(ScatteringMode::P1)) {
-			const auto modeString = std::to_string(Utility::to_underlying(ScatteringMode::P1));
+		if (!mods.count(ScatteringMode::P21)) {
+			const auto modeString = std::to_string(Utility::to_underlying(ScatteringMode::P21));
+			std::cout << "<A1SignalGenerator>: there is no " + modeString + "mode, possibly result signal is wrong!" << std::endl;
+		}
+
+		if (!mods.count(ScatteringMode::P22)) {
+			const auto modeString = std::to_string(Utility::to_underlying(ScatteringMode::P22));
 			std::cout << "<A1SignalGenerator>: there is no " + modeString + "mode, possibly result signal is wrong!" << std::endl;
 		}
 
 		if (!mods.count(ScatteringMode::P31)) {
 			const auto modeString = std::to_string(Utility::to_underlying(ScatteringMode::P31));
-			std::cout << "<A1SignalGenerator>: there is no " + modeString + "mode, possibly result signal is wrong!" << std::endl;
-		}
-
-		if (!mods.count(ScatteringMode::P32)) {
-			const auto modeString = std::to_string(Utility::to_underlying(ScatteringMode::P32));
 			std::cout << "<A1SignalGenerator>: there is no " + modeString + "mode, possibly result signal is wrong!" << std::endl;
 		}
 	}
