@@ -47,7 +47,7 @@ public:
 	}
 
 	virtual ParameterHolder parseSignalParameters(const Modes& iModes, const std::string_view& iFilePath, double iThetaSca) {
-		return parseSignalParameters(iModes, std::string{ iFilePath.data() }, iThetaSca);
+		return MultipleSignalParametersParser::parseSignalParameters(iModes, std::string{ iFilePath.data() }, iThetaSca);
 	}
 
 protected:

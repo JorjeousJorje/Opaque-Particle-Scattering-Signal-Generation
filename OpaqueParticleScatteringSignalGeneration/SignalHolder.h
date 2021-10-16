@@ -9,28 +9,39 @@
 using valVec = std::valarray<double>;
 
 
+struct SignalSample {
+	valVec signal;
+	double t0;
+	double sigma;
+};
+
 class SignalHolder {
-	std::unordered_map<ScatteringMode, valVec> _signals;
+	std::unordered_map<ScatteringMode, SignalSample> _signals;
 
 public:
-	explicit SignalHolder(std::unordered_map<ScatteringMode, valVec> iSignals)
+	explicit SignalHolder(std::unordered_map<ScatteringMode, SignalSample> iSignals)
 	:	_signals{ std::move(iSignals)}
 	{
 	}
 
 	const valVec& operator[](const ScatteringMode& iMode) const
 	{
-		return _signals.at(iMode);
+		return _signals.at(iMode).signal;
+	}
+
+	[[nodiscard]] double getSignalPeak(const ScatteringMode& iMode) const {
+		return _signals.at(iMode).t0;
+	}
+
+	[[nodiscard]] double getSigmaWidth(const ScatteringMode& iMode) const {
+		return _signals.at(iMode).sigma;
 	}
 
 	[[nodiscard]] valVec getResultSignal() const {
-		valVec oResultSignal = _signals.begin()->second;
-
+		valVec oResultSignal = _signals.begin()->second.signal;
 		if (_signals.size() > 1) {
-			std::for_each(std::next(_signals.begin()), _signals.end(), [&](const auto& pair)
-				{
-					oResultSignal += pair.second;
-				});
+			const auto adder = [&](const auto& pair) { oResultSignal += pair.second.signal; };
+			std::for_each(std::next(_signals.begin()), _signals.end(), adder);
 		}
 
 		return oResultSignal;

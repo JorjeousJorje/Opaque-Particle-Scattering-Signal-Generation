@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{79ed826c-ccdc-4f58-a773-8faedc75ff51}</ProjectGuid>
-    <RootNamespace>OpaqueParticleScatteringSignalGeneration</RootNamespace>
+    <ProjectGuid>{96cb0a1c-f6b7-4bff-a8cd-478cc22f7e91}</ProjectGuid>
+    <RootNamespace>DatasetGeneration</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -88,9 +88,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp20</LanguageStandard>
-      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -105,9 +102,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp20</LanguageStandard>
-      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -122,9 +116,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp20</LanguageStandard>
-      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,9 +130,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp20</LanguageStandard>
-      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -152,43 +140,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="A10SignalGenerator.h" />
-    <ClInclude Include="A11SignalGenerator.h" />
-    <ClInclude Include="A12SignalGenerator.h" />
-    <ClInclude Include="A13SignalGenerator.h" />
-    <ClInclude Include="A1SignalGenerator.h" />
-    <ClInclude Include="A2SignalGenerator.h" />
-    <ClInclude Include="A3SignalGenerator.h" />
-    <ClInclude Include="A4SignalGenerator.h" />
-    <ClInclude Include="A5SignalGenerator.h" />
-    <ClInclude Include="A6SignalGenerator.h" />
-    <ClInclude Include="A7SignalGenerator.h" />
-    <ClInclude Include="A8SignalGenerator.h" />
-    <ClInclude Include="A9SignalGenerator.h" />
-    <ClInclude Include="Areas.h" />
-    <ClInclude Include="Config.h" />
-    <ClInclude Include="ConfigParser.h" />
-    <ClInclude Include="FiveOrdersSignalGenerator.h" />
-    <ClInclude Include="FourOrdersSignalGenerator.h" />
-    <ClInclude Include="LaserParticleParameters.h" />
-    <ClInclude Include="MultipleSignalParametersParser.h" />
-    <ClInclude Include="OneOrderSignalGenerator.h" />
-    <ClInclude Include="P21P22ParametersParser.h" />
-    <ClInclude Include="P21ParametersParser.h" />
-    <ClInclude Include="P22ParametersParser.h" />
-    <ClInclude Include="ParameterHolder.h" />
-    <ClInclude Include="ScatteringOrderParameters.h" />
-    <ClInclude Include="P0ParametersParser.h" />
-    <ClInclude Include="ParametersParsers.h" />
-    <ClInclude Include="Settings.h" />
-    <ClInclude Include="SignalGenerator.h" />
-    <ClInclude Include="SignalHolder.h" />
-    <ClInclude Include="SingleSignalParametersParser.h" />
-    <ClInclude Include="ThreeOrdersSignalGenerator.h" />
-    <ClInclude Include="TwoOrdersSignalGenerator.h" />
-    <ClInclude Include="Utility.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

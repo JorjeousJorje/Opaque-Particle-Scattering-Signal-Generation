@@ -12,7 +12,7 @@ protected:
 	OneOrderSignalGenerator _signalGen3;
 
 public:
-	FourOrdersSignalGenerator(const FourOrdersParameters& iParams, const LaserParticleParameters& iLPParams)
+	explicit FourOrdersSignalGenerator(const FourOrdersParameters& iParams, const LaserParticleParameters& iLPParams)
 	:	ThreeOrdersSignalGenerator{ ThreeOrderParameters(iParams), iLPParams },
 		params3{ iParams.params3 },
 		_signalGen3{ params3, _laserParticleParams }
@@ -25,13 +25,13 @@ public:
 		const auto oSignal2 = _signalGen2.generateSignal(iTime, iPol, true);
 		const auto oSignal3 = _signalGen3.generateSignal(iTime, iPol, true);
 
-		SignalHolder holder{ {
-			{_params.mode, oSignal0},
-			{params1.mode, oSignal1},
-			{params2.mode, oSignal2},
-			{params3.mode, oSignal3}
+		SignalHolder oHolder{ {
+			{_params.mode,  {oSignal0, _to, _sigma}},
+			{params1.mode, {oSignal1, _signalGen1._to, _signalGen1._sigma}},
+			{params2.mode, {oSignal2, _signalGen2._to, _signalGen2._sigma}},
+			{params3.mode, {oSignal3, _signalGen3._to, _signalGen3._sigma}}
 		}};
-		return holder;
+		return oHolder;
 	}
 
 

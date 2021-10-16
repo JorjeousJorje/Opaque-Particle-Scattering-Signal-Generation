@@ -5,5 +5,5 @@ struct LaserParticleParameters {
 	double d;
 	double v;
 	double w0;
-	double sigma;
+	double sigma{w0 / v};
 };

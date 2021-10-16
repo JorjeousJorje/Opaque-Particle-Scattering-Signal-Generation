@@ -11,9 +11,11 @@ class FiveOrdersSignalGenerator;
 class OneOrderSignalGenerator: public SignalGenerator {
 protected:
 	ScatteringOrderParameters _params;
+	double _to{};
+	double _sigma{};
 
 public:
-	OneOrderSignalGenerator(const ScatteringOrderParameters& iParams, const LaserParticleParameters& iLPParams)
+	explicit OneOrderSignalGenerator(const ScatteringOrderParameters& iParams, const LaserParticleParameters& iLPParams)
 	:	SignalGenerator{ iLPParams },
 		_params{iParams}
 	{
@@ -22,10 +24,10 @@ public:
 
 	SignalHolder generateSignal(const valVec& iTime, const Polarization& iPol) override {
 		const auto oSignal = generateSignal(iTime, iPol, true);
-		SignalHolder holder{{
-				{_params.mode, oSignal}
+		SignalHolder oHolder{{
+				{_params.mode, {oSignal, _to, _sigma}}
 		}};
-		return holder;
+		return oHolder;
 
 	}
 
@@ -36,16 +38,15 @@ protected:
 	friend FourOrdersSignalGenerator;
 	friend FiveOrdersSignalGenerator;
 
-	valVec generateSignal(const valVec& iTime, const Polarization& iPol, const bool) const {
-		const auto t0 = _laserParticleParams.d / (2.0 * _laserParticleParams.v) * std::sin(_params.theta);
-		const auto sigma_squared = _laserParticleParams.sigma * _laserParticleParams.sigma;
+	valVec generateSignal(const valVec& iTime, const Polarization& iPol, const bool) {
+		_to = _laserParticleParams.d / (2.0 * _laserParticleParams.v) * std::sin(_params.theta);
+		_sigma = _laserParticleParams.sigma;
+		const auto sigma_squared = _sigma * _sigma;
 
-		const auto t_t0 = iTime - t0;
+		const auto t_t0 = iTime - _to;
 		const auto A = getPolarizationAmplitude(iPol);
 
-		const auto oSignal = A * std::exp(-2 * (t_t0 * t_t0) / sigma_squared);
-
-		return oSignal;
+		return A * std::exp(-2 * (t_t0 * t_t0) / sigma_squared);
 	}
 
 	double getPolarizationAmplitude(const Polarization& iPol) const {

@@ -17,10 +17,12 @@ int main() {
 	P0ParametersParser P0parser{};
 	P21P22ParametersParser P21P22Parser{};
 
-	std::ifstream configFile{ filePathLaserConfig };
-	config.read(configFile);
+	LaserParticleParameters laserParameters{
+		100.0,
+		10.0,
+		10.0,
+	};
 
-	const auto laserParameters = config.getLaserParticleParameters();
 	const auto paramsP0 = P0parser.parseSignalParameters(filePathParametersP0, thetaScattering).value();
 	const auto paramsP21P22 = P21P22Parser.parseSignalParameters(filePathParametersP21P22, thetaScattering);
 

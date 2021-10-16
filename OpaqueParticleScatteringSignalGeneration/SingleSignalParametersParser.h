@@ -40,7 +40,7 @@ public:
 	};
 
 	virtual std::optional<ScatteringOrderParameters> parseSignalParameters(const ScatteringMode& iMode, const std::string_view& iFilePath, double iThetaSca) {
-		return parseSignalParameters(iMode, std::string{ iFilePath.data() }, iThetaSca);
+		return SingleSignalParametersParser::parseSignalParameters(iMode, std::string{ iFilePath.data() }, iThetaSca);
 	}
 
 protected:

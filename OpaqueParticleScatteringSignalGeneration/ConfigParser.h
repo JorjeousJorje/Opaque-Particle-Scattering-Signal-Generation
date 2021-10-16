@@ -1,5 +1,6 @@
 #pragma once
 #include <algorithm>
+#include <locale>
 
 
 class ConfigParser final {
@@ -22,8 +23,8 @@ public:
 private:
 
 	void removeWhitespaces(std::string& iStr) const {
-		iStr.erase(std::remove_if(iStr.begin(), iStr.end(),
-		[](char ch) { return std::isspace<char>(ch, std::locale::classic()); }), 
-		iStr.end());
+
+		constexpr auto space_remover = [](const char ch) { return std::isspace<char>(ch, std::locale::classic()); };
+		iStr.erase(std::remove_if(iStr.begin(), iStr.end(), space_remover),iStr.end());
 	}
 };

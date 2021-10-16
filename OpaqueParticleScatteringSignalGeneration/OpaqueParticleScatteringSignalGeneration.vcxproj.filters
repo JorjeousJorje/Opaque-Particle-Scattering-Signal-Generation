@@ -53,9 +53,6 @@
     <ClInclude Include="Utility.h">
       <Filter>Файлы заголовков\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="LaserParticleConfig.h">
-      <Filter>Файлы заголовков\SetupConfig</Filter>
-    </ClInclude>
     <ClInclude Include="ConfigParser.h">
       <Filter>Файлы заголовков\SetupConfig</Filter>
     </ClInclude>
