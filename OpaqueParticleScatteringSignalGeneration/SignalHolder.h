@@ -37,6 +37,18 @@ public:
 		return _signals.at(iMode).sigma;
 	}
 
+	[[nodiscard]] std::vector<ScatteringMode> getModes() const {
+		std::vector<ScatteringMode> oModes(_signals.size());
+		auto key_selector = [](const auto& pair) { return pair.first; };
+		std::transform(_signals.begin(), _signals.end(), oModes.begin(), key_selector);
+		return oModes;
+
+	}
+
+	[[nodiscard]] std::size_t signalsNum() const {
+		return _signals.size();
+	}
+
 	[[nodiscard]] valVec getResultSignal() const {
 		valVec oResultSignal = _signals.begin()->second.signal;
 		if (_signals.size() > 1) {

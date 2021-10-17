@@ -6,6 +6,7 @@
 #include <sstream>
 #include <iomanip>
 #include <numbers>
+#include <valarray>
 #include <string_view>
 
 #include "ScatteringOrderParameters.h"
@@ -19,12 +20,17 @@ protected:
 public:
 	virtual ~SingleSignalParametersParser() = default;
 
-	virtual std::optional<ScatteringOrderParameters> parseSignalParameters(const ScatteringMode& iMode, const std::string& iFilePath, double iThetaSca) {
+	virtual std::optional<ScatteringOrderParameters> parseSignalParameters(
+		const ScatteringMode& iMode, 
+		const std::string& iFilePath, 
+		const double iThetaSca, 
+		const double iUlp=10e11)
+	{
 		std::ifstream file{ iFilePath };
 		ScatteringOrderParameters params;
 		for (std::string buffer; std::getline(file, buffer, '\n'); ) {
 
-			if (setParameters(params, buffer, iThetaSca, iMode)) {
+			if (setParameters(params, buffer, iThetaSca, iMode, iUlp)) {
 				break;
 			}
 
@@ -37,22 +43,94 @@ public:
 		params.mode = iMode;
 		_parameters.clear();
 		return params;
-	};
+	}
 
-	virtual std::optional<ScatteringOrderParameters> parseSignalParameters(const ScatteringMode& iMode, const std::string_view& iFilePath, double iThetaSca) {
-		return SingleSignalParametersParser::parseSignalParameters(iMode, std::string{ iFilePath.data() }, iThetaSca);
+	virtual std::vector<ScatteringOrderParameters> parseSignalParameters(
+		const ScatteringMode& iMode, 
+		const std::string& iFilePath, 
+		const std::valarray<double>& iThetaSca, 
+		const double iUlp = 10e11)
+	{
+		std::ifstream file{ iFilePath };
+		std::vector<ScatteringOrderParameters> oParams(iThetaSca.size());
+
+		auto itTheta = std::begin(iThetaSca);
+		auto itParam = oParams.begin();
+
+		for (std::string buffer; std::getline(file, buffer, '\n'); ) {
+
+			
+			if (setParameters(*itParam, buffer, *itTheta, iMode, iUlp)) {
+				++itParam;
+				++itTheta;
+				_parameters.clear();
+			}
+
+			if(itParam == oParams.end()) {
+				break;
+			}
+
+
+		}
+
+		auto mode_setter = [&](auto& iParam) { iParam.mode = iMode; };
+		std::for_each(oParams.begin(), oParams.end(), mode_setter);
+		_parameters.clear();
+		return oParams;
+	}
+
+	virtual std::optional<ScatteringOrderParameters> parseSignalParameters(
+		const ScatteringMode& iMode, 
+		const std::string_view& iFilePath, 
+		double iThetaSca, 
+		const double iUlp = 10e11)
+	{
+		return SingleSignalParametersParser::parseSignalParameters(iMode, std::string{ iFilePath.data() }, iThetaSca, iUlp);
+	}
+	virtual std::vector<ScatteringOrderParameters> parseSignalParameters(
+		const ScatteringMode& iMode, 
+		const std::string_view& iFilePath, 
+		const std::valarray<double>& iThetaSca, 
+		const double iUlp = 10e11)
+	{
+		return SingleSignalParametersParser::parseSignalParameters(iMode, std::string{ iFilePath.data() }, iThetaSca, iUlp);
 	}
 
 protected:
 
-	bool setParameters(ScatteringOrderParameters& iParams, const std::string& iBuffer, const double iThetaSca, const ScatteringMode& iMode) {
+	virtual std::optional<ScatteringOrderParameters> parseSignalParameters(
+		const std::string& iFilePath, 
+		double iThetaSca, 
+		const double iUlp = 10e11) { return {}; }
+	virtual std::optional<ScatteringOrderParameters> parseSignalParameters(
+		const std::string_view& iFilePath,
+		double iThetaSca, 
+		const double iUlp = 10e11) { return {}; }
+	virtual std::vector<ScatteringOrderParameters> parseSignalParameters(
+		const std::string& iFilePath, 
+		const std::valarray<double>& iThetaSca, 
+		const double iUlp = 10e11) { return {}; }
+	virtual std::vector<ScatteringOrderParameters> parseSignalParameters(
+		const std::string_view& iFilePath, 
+		const std::valarray<double>& iThetaSca, 
+		const double iUlp = 10e11) { return {}; }
+
+
+private:
+	bool setParameters(
+		ScatteringOrderParameters& iParams, 
+		const std::string& iBuffer, 
+		const double iThetaSca, 
+		const ScatteringMode& iMode, 
+		const double iUlp = 10e11)
+	{
 		double thetaSca;
 		_parameters.str(iBuffer);
 		_parameters >> iParams.m;
 		_parameters >> thetaSca;
 
 
-		if (Utility::AlmostEqual(iThetaSca, thetaSca, 10e6)) {
+		if (Utility::AlmostEqual(iThetaSca, thetaSca, iUlp)) {
 			double theta;
 			iParams.thetaSca.emplace(thetaSca);
 			_parameters >> theta;
@@ -80,11 +158,5 @@ protected:
 		}
 		return true;
 	}
-
-	virtual std::optional<ScatteringOrderParameters> parseSignalParameters(const std::string& iFilePath, double iThetaSca) { return {}; }
-	virtual std::optional<ScatteringOrderParameters> parseSignalParameters(const std::string_view& iFilePath, double iThetaSca) { return {}; }
-
-
-private:
 	
 };

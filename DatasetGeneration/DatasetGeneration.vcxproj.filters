@@ -9,6 +9,9 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="Файлы заголовков\DatasetGenerators">
+      <UniqueIdentifier>{7c5f0a39-e23c-4b5e-91f7-2e8e50a0f794}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Файлы ресурсов">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -18,5 +21,13 @@
     <ClCompile Include="main.cpp">
       <Filter>Файлы ресурсов</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="A13DatasetGenerator.h">
+      <Filter>Файлы заголовков\DatasetGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="DatasetGenerator.h">
+      <Filter>Файлы заголовков\DatasetGenerators</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

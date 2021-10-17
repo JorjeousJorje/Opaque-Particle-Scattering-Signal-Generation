@@ -1,7 +1,9 @@
 #pragma once
+#include <string>
 #include <iostream>
 #include <unordered_set>
 
+#include "Utility.h"
 #include "ThreeOrdersSignalGenerator.h"
 
 
