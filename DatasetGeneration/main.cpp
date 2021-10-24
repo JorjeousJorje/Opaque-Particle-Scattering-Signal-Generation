@@ -18,11 +18,12 @@ int main() {
 	};
 
 	
-	const auto thetasScattering = GenerateLinspaceWithStep(139.4, 167.5, 0.1);
-	const auto time = GenerateLinspace(0.0, 15.0, 500);
-	gen.generateDataset(time, thetasScattering, laserParameters);
+	const auto thetasScattering = 165.0;
+	const auto diameters = GenerateLinspaceWithStep(90, 210, 0.5);
+	const auto time = GenerateLinspace(-15.0, 15.0, 400);
+	gen.generateDataset(time, diameters, laserParameters, thetasScattering);
 
-	gen.saveDataset("result_pol1.txt");
+	gen.saveDataset("C:/Users/georg/Desktop/Last work moments/Signals test/data/result_pol1.txt");
 
 	return 0;
 }

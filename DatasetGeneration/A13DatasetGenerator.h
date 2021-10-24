@@ -32,17 +32,6 @@ public:
 		_generatedSignals.reserve(iThetasScattering.size());
 		_signalLen = iTime.size();
 
-		/*for (std::size_t i{}; i < iThetasScattering.size(); ++i) {
-			const auto paramsP0 = _parserP0.parseSignalParameters(_pathP0, iThetasScattering[i]).value();
-			const auto paramsP21P22 = _parserP21P22.parseSignalParameters(_pathP21P22, iThetasScattering[i]);
-
-			const auto& paramsP21 = paramsP21P22[ScatteringMode::P21];
-			const auto& paramsP22 = paramsP21P22[ScatteringMode::P22];
-
-			A13SignalGenerator signalGenerator{ {paramsP0, paramsP21, paramsP22}, iLPParams };
-			_generatedSignals.emplace_back(signalGenerator.generateSignal(iTime, _pol));
-		}*/
-
 		const auto paramsP0 = _parserP0.parseSignalParameters(_pathP0, iThetasScattering);
 		const auto paramsP21P22 = _parserP21P22.parseSignalParameters(_pathP21P22, iThetasScattering);
 
@@ -52,6 +41,25 @@ public:
 		for(auto itP0 = paramsP0.begin(), itP21 = paramsP21.begin(), itP22 = paramsP22.begin(); itP0 != paramsP0.end(); ++itP0, ++itP21, ++itP22) {
 			A13SignalGenerator signalGenerator{ {{*itP0, *itP21}, *itP22}, iLPParams };
 			_generatedSignals.emplace_back(signalGenerator.generateSignal(iTime, _pol));
+		}
+	}
+
+	void generateDataset(const valVec& iTime, const valVec& iDiameters, LaserParticleParameters& iLPParams, const double iThetaScattering) override {
+		_generatedSignals.reserve(iDiameters.size());
+		_signalLen = iTime.size();
+
+		const auto paramsP0 = _parserP0.parseSignalParameters(_pathP0, iThetaScattering).value();
+		const auto paramsP21P22 = _parserP21P22.parseSignalParameters(_pathP21P22, iThetaScattering);
+
+		const auto paramsP21 = paramsP21P22(ScatteringMode::P21)[0];
+		const auto paramsP22 = paramsP21P22(ScatteringMode::P22)[0];
+
+
+		for(const auto diameter: iDiameters) {
+			iLPParams.d = diameter;
+			A13SignalGenerator signalGenerator{ {{paramsP0, paramsP21}, paramsP22}, iLPParams };
+			_generatedSignals.emplace_back(signalGenerator.generateSignal(iTime, _pol));
+
 		}
 	}
 
@@ -78,11 +86,12 @@ public:
 				file << sigma << ',';
 				file << std::fixed;
 				file << std::abs(t21 - t0) << ',';
-				file << std::abs(t22 - t0) << ',';
 				file << std::abs(t22 - t21) << ',';
 
 				file << std::setprecision(0);
-				std::ranges::copy(signal,std::ostream_iterator<double>(file, ","));
+
+				std::copy(begin(signal), end(signal) - 1,std::ostream_iterator<double>(file, ","));
+				std::copy(end(signal) - 1, end(signal), std::ostream_iterator<double>(file));
 				file << std::endl;
 			}
 			return;
@@ -99,11 +108,13 @@ private:
 		iFStream << "NumPeaks" << ',';
 		iFStream << "Sigma" << ',';
 		iFStream << "delta_021" << ',';
-		iFStream << "delta_022" << ',';
 		iFStream << "delta_2122" << ',';
 
 		for(std::size_t i{}; i < _signalLen; ++i) {
-			iFStream << "a" << i << ',';
+			iFStream << "a" << i;
+
+			if (i != _signalLen - 1)
+				iFStream << ',';
 		}
 
 		iFStream << std::endl;

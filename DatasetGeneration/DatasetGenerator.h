@@ -10,5 +10,6 @@ protected:
 public:
 	virtual ~DatasetGenerator() = default;
 	virtual void generateDataset(const valVec&, const valVec&, const LaserParticleParameters&) = 0;
+	virtual void generateDataset(const valVec&, const valVec&, LaserParticleParameters&, double) = 0;
 	virtual void saveDataset(const std::string&) = 0;
 };

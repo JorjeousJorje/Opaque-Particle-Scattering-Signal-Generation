@@ -20,8 +20,8 @@ static inline std::vector<ConfigItem> order{
 
 static inline Config config{ order };
 
-constexpr double thetaScattering = 150.0;
+constexpr double thetaScattering = 165.0;
 constexpr double tStart = -15.0;
 constexpr double tEnd = 15.0;
 
-constexpr Polarization pol = Polarization::two;
+constexpr Polarization pol = Polarization::one;
