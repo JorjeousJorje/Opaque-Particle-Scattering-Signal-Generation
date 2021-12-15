@@ -168,8 +168,6 @@
     <ClInclude Include="A8SignalGenerator.h" />
     <ClInclude Include="A9SignalGenerator.h" />
     <ClInclude Include="Areas.h" />
-    <ClInclude Include="Config.h" />
-    <ClInclude Include="ConfigParser.h" />
     <ClInclude Include="FiveOrdersSignalGenerator.h" />
     <ClInclude Include="FourOrdersSignalGenerator.h" />
     <ClInclude Include="LaserParticleParameters.h" />
@@ -178,7 +176,6 @@
     <ClInclude Include="P21P22ParametersParser.h" />
     <ClInclude Include="P21ParametersParser.h" />
     <ClInclude Include="P22ParametersParser.h" />
-    <ClInclude Include="ParameterHolder.h" />
     <ClInclude Include="ScatteringOrderParameters.h" />
     <ClInclude Include="P0ParametersParser.h" />
     <ClInclude Include="ParametersParsers.h" />

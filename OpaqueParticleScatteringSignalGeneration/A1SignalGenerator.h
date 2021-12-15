@@ -13,7 +13,7 @@ class A1SignalGenerator final: public ThreeOrdersSignalGenerator {
 
 
 public:
-	A1SignalGenerator(const ThreeOrderParameters& iParams, const LaserParticleParameters& iLPParams)
+	explicit A1SignalGenerator(const ThreeOrderParameters& iParams, const LaserParticleParameters& iLPParams)
 	:	ThreeOrdersSignalGenerator{ iParams , iLPParams}
 	{
 		const std::unordered_set mods{	iParams.params0.mode,

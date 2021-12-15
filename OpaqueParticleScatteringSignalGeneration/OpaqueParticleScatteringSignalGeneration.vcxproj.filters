@@ -53,12 +53,6 @@
     <ClInclude Include="Utility.h">
       <Filter>Файлы заголовков\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="ConfigParser.h">
-      <Filter>Файлы заголовков\SetupConfig</Filter>
-    </ClInclude>
-    <ClInclude Include="Config.h">
-      <Filter>Файлы заголовков\SetupConfig</Filter>
-    </ClInclude>
     <ClInclude Include="Settings.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -87,9 +81,6 @@
       <Filter>Файлы заголовков\SignalParametersParser\Parsers\MultipleParametersParsers</Filter>
     </ClInclude>
     <ClInclude Include="P21P22ParametersParser.h">
-      <Filter>Файлы заголовков\SignalParametersParser\Parsers\MultipleParametersParsers</Filter>
-    </ClInclude>
-    <ClInclude Include="ParameterHolder.h">
       <Filter>Файлы заголовков\SignalParametersParser\Parsers\MultipleParametersParsers</Filter>
     </ClInclude>
     <ClInclude Include="SignalHolder.h">

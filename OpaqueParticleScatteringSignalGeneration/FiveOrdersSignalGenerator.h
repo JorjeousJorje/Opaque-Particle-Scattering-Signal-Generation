@@ -18,6 +18,11 @@ public:
 	{
 	}
 
+	void setLaserParams(const LaserParticleParameters& iParams) override {
+		FourOrdersSignalGenerator::setLaserParams(iParams);
+		_signalGen4.setLaserParams(iParams);
+	}
+
 	SignalHolder generateSignal(const valVec& iTime, const Polarization& iPol) override {
 		const auto oSignal0 = OneOrderSignalGenerator::generateSignal(iTime, iPol, true);
 		const auto oSignal1 = _signalGen1.generateSignal(iTime, iPol, true);
@@ -26,11 +31,11 @@ public:
 		const auto oSignal4 = _signalGen3.generateSignal(iTime, iPol, true);
 
 		SignalHolder oHolder{ {
-			{_params.mode, {oSignal0, _to, _sigma}},
-			{params1.mode, {oSignal1, _signalGen1._to, _signalGen1._sigma}},
-			{params2.mode, {oSignal2, _signalGen2._to, _signalGen2._sigma}},
-			{params3.mode, {oSignal3, _signalGen3._to, _signalGen3._sigma}},
-			{params4.mode, {oSignal4, _signalGen4._to, _signalGen4._sigma}}
+			{_params.mode, {oSignal0, _to, _sigma, _amplitude}},
+			{params1.mode, {oSignal1, _signalGen1._to, _signalGen1._sigma, _signalGen1._amplitude}},
+			{params2.mode, {oSignal2, _signalGen2._to, _signalGen2._sigma, _signalGen2._amplitude}},
+			{params3.mode, {oSignal3, _signalGen3._to, _signalGen3._sigma, _signalGen3._amplitude}},
+			{params4.mode, {oSignal4, _signalGen4._to, _signalGen4._sigma, _signalGen4._amplitude}}
 		}};
 		return oHolder;
 	}

@@ -1,6 +1,6 @@
 #pragma once
 
-
+// Holds parameters for a laser and for a particle
 struct LaserParticleParameters {
 	double d;
 	double v;

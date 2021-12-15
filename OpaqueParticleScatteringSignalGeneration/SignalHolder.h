@@ -13,7 +13,9 @@ struct SignalSample {
 	valVec signal;
 	double t0;
 	double sigma;
+	double amplitude;
 };
+
 
 class SignalHolder {
 	std::unordered_map<ScatteringMode, SignalSample> _signals;
@@ -24,13 +26,30 @@ public:
 	{
 	}
 
-	const valVec& operator[](const ScatteringMode& iMode) const
-	{
+	const valVec& operator[](const ScatteringMode& iMode) const {
 		return _signals.at(iMode).signal;
 	}
 
-	[[nodiscard]] double getSignalPeak(const ScatteringMode& iMode) const {
+	[[nodiscard]] double getSignalTimePeak(const ScatteringMode& iMode) const {
 		return _signals.at(iMode).t0;
+	}
+
+	[[nodiscard]] std::vector<double> getSignalTimePeaks() const {
+		std::vector<double> oTimePeaks(_signals.size());
+		auto time_selector = [](const auto& pair) { return pair.second.t0; };
+		std::transform(_signals.begin(), _signals.end(), oTimePeaks.begin(), time_selector);
+		return oTimePeaks;
+	}
+
+	[[nodiscard]] double getSignalAmplitude(const ScatteringMode& iMode) const {
+		return _signals.at(iMode).amplitude;
+	}
+
+	[[nodiscard]] std::vector<double> getSignalAmplitudes() const {
+		std::vector<double> oTimePeaks(_signals.size());
+		auto time_selector = [](const auto& pair) { return pair.second.amplitude; };
+		std::transform(_signals.begin(), _signals.end(), oTimePeaks.begin(), time_selector);
+		return oTimePeaks;
 	}
 
 	[[nodiscard]] double getSigmaWidth(const ScatteringMode& iMode) const {

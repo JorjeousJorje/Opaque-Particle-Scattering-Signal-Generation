@@ -22,27 +22,27 @@ public:
 
 		if (!mods.count(ScatteringMode::P0)) {
 			const auto modeString = std::to_string(Utility::to_underlying(ScatteringMode::P0));
-			std::cout << "<A1SignalGenerator>: there is no " + modeString + "mode, possibly result signal is wrong!" << std::endl;
+			std::cout << "<A10SignalGenerator>: there is no " + modeString + "mode, possibly result signal is wrong!" << std::endl;
 		}
 
 		if (!mods.count(ScatteringMode::P21)) {
 			const auto modeString = std::to_string(Utility::to_underlying(ScatteringMode::P21));
-			std::cout << "<A1SignalGenerator>: there is no " + modeString + "mode, possibly result signal is wrong!" << std::endl;
+			std::cout << "<A10SignalGenerator>: there is no " + modeString + "mode, possibly result signal is wrong!" << std::endl;
 		}
 
 		if (!mods.count(ScatteringMode::P32)) {
 			const auto modeString = std::to_string(Utility::to_underlying(ScatteringMode::P22));
-			std::cout << "<A1SignalGenerator>: there is no " + modeString + "mode, possibly result signal is wrong!" << std::endl;
+			std::cout << "<A10SignalGenerator>: there is no " + modeString + "mode, possibly result signal is wrong!" << std::endl;
 		}
 
 		if (!mods.count(ScatteringMode::P31)) {
 			const auto modeString = std::to_string(Utility::to_underlying(ScatteringMode::P31));
-			std::cout << "<A1SignalGenerator>: there is no " + modeString + "mode, possibly result signal is wrong!" << std::endl;
+			std::cout << "<A10SignalGenerator>: there is no " + modeString + "mode, possibly result signal is wrong!" << std::endl;
 		}
 
 		if (!mods.count(ScatteringMode::P32)) {
 			const auto modeString = std::to_string(Utility::to_underlying(ScatteringMode::P32));
-			std::cout << "<A1SignalGenerator>: there is no " + modeString + "mode, possibly result signal is wrong!" << std::endl;
+			std::cout << "<A10SignalGenerator>: there is no " + modeString + "mode, possibly result signal is wrong!" << std::endl;
 		}
 	}
 };

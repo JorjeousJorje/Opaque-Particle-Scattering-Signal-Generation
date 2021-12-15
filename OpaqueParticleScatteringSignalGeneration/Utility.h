@@ -34,9 +34,15 @@ namespace Utility
 
 	template <typename T0, typename T1>
 	vec GenerateLinspace(T0 iX0, T1 iX1, const std::size_t iIntervalCount) {
-		vec oLinspace(iIntervalCount + 1);
+		vec oLinspace(iIntervalCount);
+
+		if (iIntervalCount == 0) {
+			oLinspace.resize(1);
+			oLinspace[0] = iX0;
+			return oLinspace;
+		}
 		auto step = (iX1 - iX0) / static_cast<double>(iIntervalCount);
-		for (std::size_t i = 0; i <= iIntervalCount; ++i) {
+		for (std::size_t i = 0; i < iIntervalCount; ++i) {
 			oLinspace[i] = iX0 + static_cast<double>(i) * step;
 		}
 

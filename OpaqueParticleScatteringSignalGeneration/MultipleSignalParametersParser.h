@@ -5,10 +5,7 @@
 #include <iostream>
 #include <sstream>
 #include <iomanip>
-#include <string_view>
-#include <vector>
 
-#include "ParameterHolder.h"
 #include "ScatteringOrderParameters.h"
 #include "Utility.h"
 

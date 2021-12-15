@@ -1,14 +1,7 @@
 #pragma once
-#include <valarray>
-
 #include "SignalHolder.h"
 #include "LaserParticleParameters.h"
 
-
-enum class Polarization: uint8_t {
-	one = 1,
-	two = 2
-};
 
 class SignalGenerator {
 protected:
@@ -18,6 +11,10 @@ public:
 	SignalGenerator(const LaserParticleParameters& iLPParams)
 		: _laserParticleParams{ iLPParams }
 	{
+	}
+
+	virtual void setLaserParams(const LaserParticleParameters& iParams) {
+		_laserParticleParams = iParams;
 	}
 
 	virtual ~SignalGenerator() = default;

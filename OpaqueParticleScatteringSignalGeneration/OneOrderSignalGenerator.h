@@ -13,6 +13,7 @@ protected:
 	ScatteringOrderParameters _params;
 	double _to{};
 	double _sigma{};
+	double _amplitude{};
 
 public:
 	explicit OneOrderSignalGenerator(const ScatteringOrderParameters& iParams, const LaserParticleParameters& iLPParams)
@@ -22,17 +23,20 @@ public:
 	}
 
 
+	void setParams(const ScatteringOrderParameters& iParams) {
+		_params = iParams;
+	}
+
 	SignalHolder generateSignal(const valVec& iTime, const Polarization& iPol) override {
 		const auto oSignal = generateSignal(iTime, iPol, true);
 		SignalHolder oHolder{{
-				{_params.mode, {oSignal, _to, _sigma}}
+				{_params.mode, {oSignal, _to, _sigma, _amplitude}}
 		}};
 		return oHolder;
 
 	}
 
 protected:
-
 	friend TwoOrdersSignalGenerator;
 	friend ThreeOrdersSignalGenerator;
 	friend FourOrdersSignalGenerator;
@@ -44,13 +48,13 @@ protected:
 		const auto sigma_squared = _sigma * _sigma;
 
 		const auto t_t0 = iTime - _to;
-		const auto A = getPolarizationAmplitude(iPol);
+		_amplitude = getPolarizationAmplitude(iPol);
 
-		return A * std::exp(-2 * (t_t0 * t_t0) / sigma_squared);
+		return _amplitude * std::exp(-2 * (t_t0 * t_t0) / sigma_squared);
 	}
 
 	double getPolarizationAmplitude(const Polarization& iPol) const {
-		if(iPol == Polarization::one) {
+		if (iPol == Polarization::one) {
 			return _params.ampP1;
 		}
 		return _params.ampP2;

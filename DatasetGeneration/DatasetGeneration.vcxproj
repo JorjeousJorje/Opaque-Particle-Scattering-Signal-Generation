@@ -154,8 +154,11 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="A11DatasetGenerator.h" />
     <ClInclude Include="A13DatasetGenerator.h" />
+    <ClInclude Include="A6DatasetGenerator.h" />
     <ClInclude Include="DatasetGenerator.h" />
+    <ClInclude Include="PeakClassificationDatasetGenerator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

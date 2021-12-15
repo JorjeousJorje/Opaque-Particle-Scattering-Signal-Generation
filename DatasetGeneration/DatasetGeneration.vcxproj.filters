@@ -29,5 +29,14 @@
     <ClInclude Include="DatasetGenerator.h">
       <Filter>Файлы заголовков\DatasetGenerators</Filter>
     </ClInclude>
+    <ClInclude Include="A6DatasetGenerator.h">
+      <Filter>Файлы заголовков\DatasetGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="A11DatasetGenerator.h">
+      <Filter>Файлы заголовков\DatasetGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="PeakClassificationDatasetGenerator.h">
+      <Filter>Файлы заголовков\DatasetGenerators</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
